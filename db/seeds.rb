@@ -6,7 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-  @myOrg = 55
+  @myOrg = '00DE0000000cTHgMAM'
   Offer.create([
     {orgId: @myOrg, name: 'Brokerage Account', script: 'Brokerage account script...'},
     {orgId: @myOrg, name: 'Checking Account', script: 'Checking account script...'},
