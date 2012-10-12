@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  orgId: MyString
+  name: MyString
+  script: MyString
+  stdImgUrl: MyString
+  consoleImgUrl: MyString
+
+two:
+  orgId: MyString
+  name: MyString
+  script: MyString
+  stdImgUrl: MyString
+  consoleImgUrl: MyString
