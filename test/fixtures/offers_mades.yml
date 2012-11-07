@@ -1,13 +1,12 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
 
 one:
-  orgId: MyString
-  userId: MyString
-  offerId: MyString
-  status: MyString
-
+  orgId: 00DE0000000cnouMAA
+  userId: 003E000000K2nDM
+  offerId: 1
+  status: rejected
 two:
-  orgId: MyString
-  userId: MyString
-  offerId: MyString
-  status: MyString
+  orgId: 00DE0000000cnouMAA
+  userId: 003E000000K2nDM
+  offerId: 2
+  status: accepted

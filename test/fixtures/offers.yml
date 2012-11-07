@@ -1,15 +1,41 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
 
 one:
-  orgId: MyString
-  name: MyString
-  script: MyString
-  stdImgUrl: MyString
-  consoleImgUrl: MyString
+  id: 1
+  orgId: 00DE0000000cnouMAA
+  name: Brokerage Account
+  script: Brokerage account script ...
+  stdImgUrl:
+  consoleImgUrl:
 
 two:
-  orgId: MyString
-  name: MyString
-  script: MyString
-  stdImgUrl: MyString
-  consoleImgUrl: MyString
+  id: 2
+  orgId: 00DE0000000cnouMAA
+  name: Checking Account
+  script: Checking account script ...
+  stdImgUrl:
+  consoleImgUrl:
+
+three:
+  id: 3
+  orgId: 00DE0000000cnouMAA
+  name: Retirement Account
+  script: Retirement account script ...
+  stdImgUrl:
+  consoleImgUrl:
+
+four:
+  id: 4
+  orgId: 00DE0000000cnouMAA
+  name: Savings Account
+  script: Savings account script ...
+  stdImgUrl:
+  consoleImgUrl:
+
+five:
+  id: 5
+  orgId: 00DE0000000cnouMAA
+  name: Visa Account
+  script: Visa account script ...
+  stdImgUrl:
+  consoleImgUrl:

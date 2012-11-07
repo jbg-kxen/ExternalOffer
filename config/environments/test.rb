@@ -1,4 +1,13 @@
 ExternalOffer::Application.configure do
+
+  OFFER_SERVICE_IMPL = 'HardOfferScorer'
+
+  SF_CLIENT_ID = '3MVG**'
+  SF_CLIENT_SECRET = '59**'
+  SF_USERNAME = 'tintin@kxen.com'
+  SF_PASSWORD = 'KxS***'
+  SF_SECURITY_TOKEN = 'ZX***'
+
   # Settings specified here will take precedence over those in config/application.rb
 
   # The test environment is used exclusively to run your application's

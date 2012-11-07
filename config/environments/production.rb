@@ -1,6 +1,14 @@
 ExternalOffer::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
+  OFFER_SERVICE_IMPL = ENV['OFFER_SERVICE_IMPL']
+
+  SF_CLIENT_ID = ENV['SF_CLIENT_ID']
+  SF_CLIENT_SECRET = ENV['SF_CLIENT_SECRET']
+  SF_USERNAME = ENV['SF_USERNAME']
+  SF_PASSWORD = ENV['SF_PASSWORD']
+  SF_SECURITY_TOKEN = ENV['SF_SECURITY_TOKEN']
+
   # Code is not reloaded between requests
   config.cache_classes = true
 
