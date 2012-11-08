@@ -4,7 +4,7 @@ ExternalOffer::Application.routes.draw do
 
   get "offers" => "offers#index"
   get "offers/:orgId/:userId" => "offers#getOffers"
-  get "offers/:orgId/:userId/accept/:offerId" => "offers#accept"
-  get "offers/:orgId/:userId/reject/:offerId" => "offers#reject"
+  get "offers/:orgId/:userId/:offerId/accept" => "offers#accept"
+  get "offers/:orgId/:userId/:offerId/reject" => "offers#reject"
 
 end
