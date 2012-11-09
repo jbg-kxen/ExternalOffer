@@ -39,25 +39,32 @@ module ExternalLib
   end
 
   class StoredProcedureScorer
-    def score(offers, userId)
+    attr_accessor :model_procedure, :model_arg, :field_types
+    def initialize
+      @model_procedure = {'Brokerage Account'=>'urbano',
+                          'Checking Account'=>'dueudf',
+                          'Retirement Account'=>'proudf',
+                          'Savings Account'=>'massimo',
+                          'Visa Account'=>'miniudf'}
+
+      @model_arg = {'Brokerage Account'=>%w(MailingState Gender__c Income_Range__c Age__c Marital_Status__c),
+                    'Checking Account'=>%w(MailingState Income_Range__c Age__c Homeowner__c Marital_Status__c),
+                    'Retirement Account'=>%w(MailingState Gender__c Income_Range__c Age__c Homeowner__c),
+                    'Savings Account'=>%w(MailingState Gender__c Income_Range__c Age__c Homeowner__c Marital_Status__c),
+                    'Visa Account'=>%w(MailingState Gender__c Income_Range__c Age__c Homeowner__c Occupation__c Marital_Status__c)}
+
+      @field_types = {}
+    end
+    
+    def score(offers,  userId)
       input = buildADS(userId)
       puts "StoredProcedureScorer ... input: #{input.to_s}"
-      model_procedure = {'Brokerage Account'=>'urbano',
-                   'Checking Account'=>'dueudf',
-                   'Retirement Account'=>'proudf',
-                   'Savings Account'=>'massimo',
-                   'Visa Account'=>'miniudf'}
-      model_arg = {'Brokerage Account'=>'MailingState,Gender__c,Income_Range__c,Age__c,Marital_Status__c',
-                   'Checking Account'=>'MailingState,Income_Range__c,Age__c,Homeowner__c,Marital_Status__c',
-                   'Retirement Account'=>'MailingState,Gender__c,Income_Range__c,Age__c,Homeowner__c',
-                   'Savings Account'=>'MailingState,Gender__c,Income_Range__c,Age__c,Homeowner__c,Marital_Status__c',
-                   'Visa Account'=>'MailingState,Gender__c,Income_Range__c,Age__c,Homeowner__c,Occupation__c,Marital_Status__c'}
       scoredOffers = offers.collect { |x|
         # first initialize the response object
         scoredOffer = ScoredOffer.new x
         # then calculate the score
         procedure_name = model_procedure[x.name]
-        procedure_args = model_arg[x.name].split(',').collect {|y| get_input(input,y) }.join(',')
+        procedure_args = model_arg[x.name].collect {|y| get_input(input,y) }.join(',')
         score = execProc("#{procedure_name}(#{procedure_args})")
         # and finally calculate the proba
         scoredOffer.proba = execProc("#{procedure_name}_proba(#{score})").to_f
@@ -79,34 +86,37 @@ module ExternalLib
                              :security_token => SF_SECURITY_TOKEN,
                              :client_id => SF_CLIENT_ID,
                              :client_secret => SF_CLIENT_SECRET
-      fields = client.describe(object_type)['fields'].collect {|f| f.name}
+      #fields = client.describe(object_type)['fields'].collect {|f| f.name}
+      fields = client.describe(object_type)['fields'].collect {|f|
+        @field_types[f.name]=f.type
+        f.name
+      }
       res = client.query('select ' + fields.join(',') + ' from ' + object_type + filter).first
     end
 
     def get_input(input, var)
       v = input[var]
-      not_to_quote = ['Age__c','Homeowner__c']
-      if not_to_quote.include? var and v == nil
-        #TODO remove special treatment? defaulting to 0 instead of NULL to match Marco's application
-        return 0
-      end
       if v == nil
-        return 'NULL'
+        # Should return NULL all the time?
+        # Keep as is for demo purposes
+        should_quote(var) ? 'NULL' : 0
+      elsif @field_types[var]=='boolean'
+        v ? 1 : 0
+      else
+        should_quote(var) ? "'#{v}'" : v
       end
-      if 'Homeowner__c'.eql? var
-        # special case for Homeowner which is a boolean that cast to an integer in the stored procedures
-        return v ? 1 : 0
-      end
-      if not_to_quote.include? var
-        return v
-      end
-      return "'#{v}'"
     end
+
+    def should_quote(var)
+      return !(%w(double int).include? @field_types[var])
+    end
+
     def execProc(proc_name)
       # the return value is an instance of PG::Result
       res = ActiveRecord::Base.connection.execute('select '+proc_name)
       return res.getvalue(0,0)
     end
+
   end
 
   class OfferService
