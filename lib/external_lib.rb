@@ -121,9 +121,9 @@ module ExternalLib
 
   class OfferService
 
-    def initialize
+    def initialize(service_name=OFFER_SERVICE_IMPL)
       mod = self.class.name.split('::').first
-      @impl = Object.const_get(mod).const_get(OFFER_SERVICE_IMPL).new
+      @impl = Object.const_get(mod).const_get(service_name).new
     end
 
     def getOffers(params)
