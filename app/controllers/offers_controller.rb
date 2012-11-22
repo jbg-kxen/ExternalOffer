@@ -12,12 +12,12 @@ class OffersController < ApplicationController
 
   def accept
     ExternalLib::OfferService.new.accept(params)
-    redirect_to "/offers/#{params[:orgId]}/#{params[:userId]}"
+    getOffers
   end
 
   def reject
     ExternalLib::OfferService.new.reject(params)
-    redirect_to "/offers/#{params[:orgId]}/#{params[:userId]}"
+    getOffers
   end
 
 end
