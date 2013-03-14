@@ -1,7 +1,7 @@
 module ExternalLib
 
   class ScoredOffer
-    attr_accessor :proba, :exclusionReason
+    attr_accessor :probability, :exclusionReason
     attr_accessor :id,:name,:script,:stdImgUrl,:consoleImgUrl
     def initialize(offer)
       @id = offer.id
@@ -15,12 +15,12 @@ module ExternalLib
   class RandomOfferScorer
     def score(offers, userId)
       scoredOffers = offers.collect {|x| self.scoreOffer(x, userId)}
-      ranked = scoredOffers.sort { |x,y| y.proba - x.proba }
+      ranked = scoredOffers.sort { |x,y| y.probability - x.probability }
       return ranked
     end
     def scoreOffer(offer, userId)
       resp = ScoredOffer.new(offer)
-      resp.proba = Random.rand
+      resp.probability = Random.rand
       return resp
     end
   end
@@ -30,7 +30,7 @@ module ExternalLib
       score = 0.96548
       scoredOffers = offers.collect { |x|
         scoredOffer = ScoredOffer.new(x)
-        scoredOffer.proba = score
+        scoredOffer.probability = score
         score -= 0.20724
         scoredOffer
       }
@@ -67,7 +67,7 @@ module ExternalLib
         procedure_args = model_arg[x.name].collect {|y| get_input(input,y) }.join(',')
         score = execProc("#{procedure_name}(#{procedure_args})")
         # and finally calculate the proba
-        scoredOffer.proba = execProc("#{procedure_name}_proba(#{score})").to_f
+        scoredOffer.probability = execProc("#{procedure_name}_proba(#{score})").to_f
         scoredOffer
       }
       return scoredOffers
@@ -130,7 +130,7 @@ module ExternalLib
       offers = Offer.find_all_by_orgId(params[:orgId])
       scoredOffers = @impl.score(offers, params[:userId])
       rankedOffers = apply_rules(scoredOffers, params[:userId])
-      return rankedOffers.sort { |x,y| y.proba - x.proba }
+      return rankedOffers.sort { |x,y| y.probability - x.probability }
     end
 
     def accept(params)

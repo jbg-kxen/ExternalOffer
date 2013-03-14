@@ -13,8 +13,8 @@ class ExternalOfferTest < ActiveSupport::TestCase
     offers_for_orgId.map{|x| x.name}.each {|offer_name|
       scored_offer = scored_offers.find {|y|y.name.eql? offer_name}
       assert_not_nil scored_offer
-      puts " - name: #{scored_offer.name} -- proba: #{scored_offer.proba}, exclusion: #{scored_offer.exclusionReason or '-'}"
-      assert_not_nil scored_offer.proba
+      puts " - name: #{scored_offer.name} -- proba: #{scored_offer.probability}, exclusion: #{scored_offer.exclusionReason or '-'}"
+      assert_not_nil scored_offer.probability
     }
   end
 
@@ -43,7 +43,7 @@ class ExternalOfferTest < ActiveSupport::TestCase
     puts "exclusion: #{offer.exclusionReason}"
     assert_true !offer.exclusionReason.empty?
     offers.each{ |x|
-      puts " - id: #{x.id}, name: #{x.name } -- proba: #{x.proba}, exclusion: #{x.exclusionReason}"
+      puts " - id: #{x.id}, name: #{x.name } -- proba: #{x.probability}, exclusion: #{x.exclusionReason}"
     }
   end
 end
