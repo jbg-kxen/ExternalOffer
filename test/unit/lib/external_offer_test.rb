@@ -1,5 +1,4 @@
 require 'test_helper'
-require 'Restforce'
 require 'external_lib'
 
 class ExternalOfferTest < ActiveSupport::TestCase
