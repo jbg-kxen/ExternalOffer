@@ -1,12 +1,12 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
 
 one:
-  orgId: 00DE0000000cnouMAA
-  userId: 003E000000K2nDM
+  orgId: 00DE0000000cz9UMAQ
+  userId: 003E000000TNcZlIAL
   offerId: 1
   status: rejected
 two:
-  orgId: 00DE0000000cnouMAA
-  userId: 003E000000K2nDM
+  orgId: 00DE0000000cz9UMAQ
+  userId: 003E000000TNcZlIAL
   offerId: 2
   status: accepted

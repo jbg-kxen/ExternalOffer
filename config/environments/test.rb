@@ -2,11 +2,18 @@ ExternalOffer::Application.configure do
 
   OFFER_SERVICE_IMPL = 'HardOfferScorer'
 
-  SF_CLIENT_ID = '3MVG**'
-  SF_CLIENT_SECRET = '59**'
-  SF_USERNAME = 'tintin@kxen.com'
-  SF_PASSWORD = 'KxS***'
-  SF_SECURITY_TOKEN = 'ZX***'
+  SF_CLIENT_ID = ENV['SF_CLIENT_ID']
+  SF_CLIENT_SECRET = ENV['SF_CLIENT_SECRET']
+  SF_USERNAME = ENV['SF_USERNAME']
+  SF_PASSWORD = ENV['SF_PASSWORD']
+  SF_SECURITY_TOKEN = ENV['SF_SECURITY_TOKEN']
+
+ # SF_CLIENT_ID=3MVG9y6x0357Hle******************************************************** \
+ # SF_CLIENT_SECRET=570*********** \
+ # SF_PASSWORD=JoIt********* \
+ # SF_SECURITY_TOKEN=lGXKyS******* \
+ # SF_USERNAME=kxen-dev@kxen.com \
+ # RAILS_ENV=test bundle exec rake ci:setup:testunit test 
 
   # Settings specified here will take precedence over those in config/application.rb
 

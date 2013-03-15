@@ -23,4 +23,5 @@ group :test do
   gem 'test-unit'
   # Pretty printed test output
   gem 'turn', :require => false
+  gem 'ci_reporter'
 end
