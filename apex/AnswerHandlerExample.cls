@@ -1,4 +1,4 @@
-public with sharing class AnswerHandlerExample {
+public with sharing class AnswerHandlerExample implements IAnswerHandler{
 
 	//For standard page.
 	public String getYesUrl(String offerId, String userId) {
