@@ -1,4 +1,4 @@
-public with sharing class AnswerHandlerExample implements IAnswerHandler{
+public with sharing class AnswerHandlerExample implements IAnswerHandler2{
 	public static String pageType;
 
 	//For standard page.
